@@ -1,0 +1,41 @@
+$def with (form,results,state,grupo)
+<div class= "col-xs-12 col-sm-6 col-md-8 col-lg-9">
+    <h1> Promedio de embarazo planeado y no planeado</h1>
+    <p> Distribución porcentual de mujeres en edad fértil actualmente embarazadas según grupos de edad de acuerdo a la planeación y deseo del embarazo, nacional y por entidad federativa, 2009 y 2014</p>
+    <form name="main" method="post"  class="form-inline">
+        <div class="form-group">
+    $if not form.valid:<p class="error">Informacion erronea</p>
+    $:form.render_css()
+         <input class='btn btn-success' type="submit" />
+        </div>
+    </form>
+   $if results:  
+    <form name="main" method="post" class="form-inline">   
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <tr class="active info">
+                        <th>Estado</th>
+                        <th>Periodo</th>
+                        <th>Grupo de edad</th>
+                        <th>Planeado</th>
+                        <th>No planeado</th>
+                    </tr>                                    
+                    $for row in results:
+                    $if row['Nom_Ent'] == state and row['GpoEdad'] == grupo :
+                        <tr class="active">                                           
+                            <td>$row['Nom_Ent']</td>
+                            <td>$row['Annio']</td>
+                            <td>$row['GpoEdad']</td>
+                            <td>$row['Planeado']</td>
+                            <td>$row['Noplaneado']</td>
+                        </tr>
+                </table>
+            </div>
+        </div> 
+    </form>
+    <div class="container">
+        <h1> Mapa de los estados con porcentaje correspondiente</h1>
+        <iframe align="center" width="100%" height="520" frameborder="0" src="https://herick024.carto.com/viz/0561bd70-be7e-11e6-b147-0e3a376473ab/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    </div>
+</div>
